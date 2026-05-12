@@ -6,27 +6,27 @@
     <title>Javohir | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
         :root {
-            --bg: #08111f;
-            --surface: rgba(15, 27, 47, 0.72);
-            --surface-strong: rgba(11, 20, 36, 0.88);
-            --border: rgba(255, 255, 255, 0.08);
-            --text: #edf4ff;
-            --muted: #9bb0cc;
-            --primary: #6ee7ff;
-            --secondary: #8b5cf6;
-            --accent: #facc15;
-            --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+            --bg: #090909;
+            --panel: #111111;
+            --panel-2: #171717;
+            --line: rgba(255, 255, 255, 0.10);
+            --text: #f2eee8;
+            --muted: rgba(242, 238, 232, 0.72);
+            --accent: #f2c14e;
+            --accent-2: #7dd3fc;
+            --warm: #f6efe7;
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         html {
@@ -36,431 +36,843 @@
         body {
             font-family: 'Inter', sans-serif;
             background:
-                radial-gradient(circle at top left, rgba(139, 92, 246, 0.18), transparent 30%),
-                radial-gradient(circle at top right, rgba(110, 231, 255, 0.16), transparent 28%),
-                linear-gradient(180deg, #060b15 0%, var(--bg) 42%, #050912 100%);
+                radial-gradient(circle at 20% 10%, rgba(242, 193, 78, 0.16), transparent 24%),
+                radial-gradient(circle at 80% 18%, rgba(125, 211, 252, 0.14), transparent 22%),
+                linear-gradient(180deg, #050505 0%, #0a0a0a 100%);
             color: var(--text);
             overflow-x: hidden;
-            line-height: 1.65;
+            line-height: 1.55;
         }
 
-        .spotlight {
+        body::before {
+            content: '';
             position: fixed;
             inset: 0;
             pointer-events: none;
-            z-index: -3;
-            background:
-                radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(110, 231, 255, 0.11) 0, transparent 18%),
-                radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.18), transparent 26%),
-                radial-gradient(circle at 80% 80%, rgba(250, 204, 21, 0.09), transparent 22%);
-            filter: blur(8px);
-        }
-
-        .bg-lines {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            pointer-events: none;
-            opacity: 0.3;
+            opacity: 0.18;
             background-image:
                 linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-            background-size: 96px 96px;
-            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 92%);
+            background-size: 78px 78px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.88), transparent 95%);
+            z-index: -2;
         }
 
-        .bg-mesh {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.06;
-            background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
-            background-size: 18px 18px;
+        .wrap {
+            width: min(1320px, calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            backdrop-filter: blur(20px);
+            background: rgba(9, 9, 9, 0.72);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 18px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px 18px 18px 14px;
+            background: linear-gradient(135deg, var(--warm), #d8d2c8);
+            box-shadow: inset -10px 0 0 rgba(0, 0, 0, 0.15);
+        }
+
+        .brand strong {
+            display: block;
+            font-size: 0.98rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a,
+        .hero-cta a,
+        .mini-link {
+            color: var(--text);
+            text-decoration: none;
+            transition: 0.2s ease;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover,
+        .mini-link:hover {
+            color: #fff;
         }
 
         .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 88px 6% 48px;
+            padding: 28px 0 0;
         }
 
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3.25rem, 10vw, 7rem);
-            line-height: 0.95;
-            letter-spacing: -0.06em;
-            margin-bottom: 18px;
-            background: linear-gradient(120deg, #ffffff 0%, var(--primary) 28%, var(--accent) 58%, #ffffff 85%);
-            background-size: 220% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textShine 7s linear infinite;
+        .hero-shell {
+            position: relative;
+            border: 1px solid var(--line);
+            border-radius: 34px;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(18, 18, 18, 0.97), rgba(9, 9, 9, 0.97));
+            box-shadow: var(--shadow);
         }
 
-        @keyframes textShine {
-            to {
-                background-position: 220% center;
-            }
+        .hero-top {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 26px;
+            padding: clamp(26px, 4vw, 46px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .university-tag {
+        .eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 10px 18px;
-            border: 1px solid var(--border);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--muted);
+            width: fit-content;
+            padding: 10px 16px;
             border-radius: 999px;
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow);
-            margin-bottom: 24px;
-            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--muted);
             letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.74rem;
         }
 
-        .scholarship-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin: 28px 0 8px;
-            padding: 12px 20px;
-            border-radius: 999px;
-            border: 1px solid rgba(110, 231, 255, 0.2);
-            background: linear-gradient(135deg, rgba(110, 231, 255, 0.12), rgba(139, 92, 246, 0.12));
-            color: #dff8ff;
-            backdrop-filter: blur(18px);
-            box-shadow: var(--shadow);
-            font-weight: 700;
-            letter-spacing: 0.02em;
+        .hero-title {
+            margin: 18px 0 16px;
+            font-size: clamp(3.4rem, 10vw, 8.4rem);
+            line-height: 0.88;
+            letter-spacing: -0.08em;
+            text-transform: uppercase;
+            font-weight: 900;
         }
 
-        .slogan {
-            max-width: 760px;
-            color: var(--muted);
-            font-style: italic;
+        .hero-title .accent {
+            color: var(--accent);
         }
 
-        .stats-bar {
+        .hero-copy {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 18px;
-            width: 100%;
-            max-width: 860px;
-            margin-top: 42px;
-        }
-
-        .stat-item,
-        .card,
-        .sub-card {
-            border: 1px solid var(--border);
-            background: var(--surface);
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow);
-        }
-
-        .stat-item {
-            padding: 24px;
-            border-radius: 22px;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-        }
-
-        .stat-item::after,
-        .card::after {
-            content: '';
-            position: absolute;
-            inset: auto -20% -35% auto;
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, rgba(110, 231, 255, 0.16), transparent 70%);
-            pointer-events: none;
-        }
-
-        .stat-item:hover,
-        .card:hover,
-        .sub-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(110, 231, 255, 0.22);
-        }
-
-        .stat-item h3 {
-            font-size: 2rem;
-            color: #fff;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .stat-item p {
-            font-size: 0.8rem;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 1.6px;
-        }
-
-        .container {
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: 30px 20px 70px;
-        }
-
-        .section-header {
-            margin-bottom: 26px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .section-header::before {
-            content: '';
-            width: 46px;
-            height: 3px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .section-header h2 {
-            font-size: clamp(1.35rem, 2vw, 2rem);
-            letter-spacing: -0.03em;
-        }
-
-        .grid-cards,
-        .split-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 22px;
-        }
-
-        .card {
-            background: var(--surface);
-            padding: 30px;
-            border-radius: 24px;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.25s ease, border-color 0.25s ease;
-        }
-
-        .card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 14px;
-        }
-
-        .card p {
-            color: var(--muted);
-        }
-
-        .sub-card {
-            background: var(--surface-strong);
-            padding: 18px 18px 18px 20px;
-            border-radius: 18px;
-            margin-bottom: 14px;
-            border-left: 3px solid rgba(110, 231, 255, 0.7);
-            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-        }
-
-        .sub-card:last-child {
-            margin-bottom: 0;
-        }
-
-        .sub-card:hover {
-            background: rgba(255, 255, 255, 0.04);
-        }
-
-        .sub-card h5 {
-            color: #dff8ff;
-            margin-bottom: 6px;
-            font-size: 1rem;
-        }
-
-        .full-width-section {
-            margin-top: 54px;
-            width: 100%;
-        }
-
-        .tag-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
             margin-top: 18px;
         }
 
-        .tag {
+        .hero-copy p {
+            color: var(--muted);
+            max-width: 34ch;
+            font-size: 1rem;
+        }
+
+        .hero-actions {
+            margin-top: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 20px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-weight: 700;
+        }
+
+        .button.primary {
+            color: #111;
+            background: linear-gradient(135deg, #fff0c0, var(--accent));
+        }
+
+        .button.secondary {
+            border-color: rgba(255, 255, 255, 0.16);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .hero-aside {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .portrait-card {
+            position: relative;
+            min-height: 440px;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            background:
+                radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.1), transparent 32%),
+                linear-gradient(180deg, #efede7 0%, #dad5cc 100%);
+            color: #111;
+        }
+
+        .portrait-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+            z-index: 0;
+        }
+
+        .portrait-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.10) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.10) 1px, transparent 1px);
+            background-size: 68px 68px;
+            opacity: 0.22;
+        }
+
+        .portrait-card::after {
+            content: '';
+            position: absolute;
+            right: -9%;
+            bottom: -8%;
+            width: 62%;
+            height: 76%;
+            border-radius: 45% 55% 35% 65% / 52% 35% 65% 48%;
+            background: linear-gradient(180deg, rgba(13, 13, 13, 0.94), rgba(28, 28, 28, 0.98));
+            filter: blur(0.2px);
+            box-shadow: inset -26px 0 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .portrait-label {
+            position: absolute;
+            left: 22px;
+            top: 22px;
+            z-index: 1;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            color: #f3f7ff;
-            padding: 11px 16px;
+            padding: 10px 14px;
             border-radius: 999px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            border: 1px solid var(--border);
-            transition: 0.25s;
+            background: rgba(255, 255, 255, 0.88);
+            font-weight: 800;
+            letter-spacing: 0.03em;
         }
 
-        .tag:hover {
-            background: rgba(110, 231, 255, 0.12);
-            border-color: rgba(110, 231, 255, 0.28);
-            transform: translateY(-3px);
+        .portrait-upload {
+            position: absolute;
+            right: 22px;
+            top: 22px;
+            z-index: 2;
+            border: 0;
+            cursor: pointer;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(17, 17, 17, 0.92);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.84rem;
+        }
+
+        .portrait-text {
+            position: absolute;
+            left: 22px;
+            bottom: 22px;
+            z-index: 1;
+            max-width: 250px;
+        }
+
+        .portrait-text h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+
+        .portrait-text p {
+            font-size: 0.95rem;
+            color: rgba(17, 17, 17, 0.72);
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .info-chip {
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        .info-chip strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .info-chip span {
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .marquee {
+            overflow: hidden;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 18px;
+            padding: 18px 0;
+            width: max-content;
+            animation: marquee 24s linear infinite;
+        }
+
+        .marquee span {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            color: rgba(242, 238, 232, 0.92);
+        }
+
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        main {
+            padding: 28px 0 70px;
+        }
+
+        .section {
+            margin-top: 32px;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .section-head h2 {
+            font-size: clamp(1.4rem, 2vw, 2rem);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            max-width: 520px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .panel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+            box-shadow: var(--shadow);
+        }
+
+        .panel .inner {
+            padding: 24px;
+        }
+
+        .panel .kicker {
+            color: var(--accent-2);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            margin-bottom: 12px;
+        }
+
+        .panel h3 {
+            font-size: 1.35rem;
+            letter-spacing: -0.04em;
+            margin-bottom: 10px;
+        }
+
+        .panel p {
+            color: var(--muted);
+        }
+
+        .panel.tall {
+            grid-column: span 5;
+            min-height: 340px;
+        }
+
+        .panel.wide {
+            grid-column: span 7;
+        }
+
+        .panel.mid {
+            grid-column: span 4;
+        }
+
+        .work-card {
+            min-height: 240px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: linear-gradient(145deg, rgba(242, 193, 78, 0.12), rgba(255, 255, 255, 0.04));
+        }
+
+        .work-card.alt {
+            background: linear-gradient(145deg, rgba(125, 211, 252, 0.12), rgba(255, 255, 255, 0.04));
+        }
+
+        .work-card .big {
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            line-height: 0.92;
+            letter-spacing: -0.06em;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+
+        .metric-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .metric {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .metric:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .metric strong {
+            font-size: 1.05rem;
+        }
+
+        .metric span {
+            color: var(--muted);
+            text-align: right;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 15px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+        }
+
+        .portrait-inline {
+            min-height: 100%;
+            background:
+                radial-gradient(circle at 52% 28%, rgba(255, 255, 255, 0.16), transparent 22%),
+                linear-gradient(180deg, #ece7df 0%, #d7d2c9 100%);
+            color: #111;
+        }
+
+        .portrait-inline .inner {
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 16px;
+            align-items: end;
+        }
+
+        .portrait-shape {
+            width: min(100%, 260px);
+            aspect-ratio: 0.9;
+            border-radius: 46% 54% 40% 60% / 50% 45% 55% 50%;
+            background: linear-gradient(180deg, #1a1a1a, #050505);
+            justify-self: end;
+            box-shadow: inset -24px 0 0 rgba(255, 255, 255, 0.04);
+        }
+
+        .portrait-inline h3,
+        .portrait-inline p,
+        .portrait-inline .kicker {
+            color: #111;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .contact-card {
+            grid-column: span 6;
+            padding: 26px;
+            min-height: 210px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .contact-card a {
+            color: #fff;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+            font-weight: 700;
         }
 
         footer {
-            text-align: center;
-            padding: 34px 20px 44px;
+            padding: 24px 0 38px;
             color: var(--muted);
-            border-top: 1px solid var(--border);
-            background: rgba(4, 8, 16, 0.45);
-            backdrop-filter: blur(16px);
+            text-align: center;
         }
 
-        footer p + p {
-            margin-top: 10px;
+        .stack {
+            display: grid;
+            gap: 16px;
         }
 
-        @media (max-width: 720px) {
-            .hero {
-                padding-top: 72px;
-            }
+        .stack .panel {
+            min-height: auto;
+        }
 
-            .stats-bar {
+        @media (max-width: 980px) {
+            .hero-top,
+            .hero-copy,
+            .info-row,
+            .section-head,
+            .portrait-inline .inner {
                 grid-template-columns: 1fr;
             }
 
-            .container {
-                padding-inline: 16px;
+            .nav-links {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: flex-end;
             }
 
-            .card,
-            .stat-item {
-                border-radius: 20px;
+            .panel.tall,
+            .panel.wide,
+            .panel.mid,
+            .contact-card {
+                grid-column: span 12;
+            }
+
+            .hero-title {
+                font-size: clamp(3rem, 14vw, 7rem);
+            }
+        }
+
+        @media (max-width: 720px) {
+            .wrap {
+                width: min(100% - 20px, 1320px);
+            }
+
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                justify-content: flex-start;
+            }
+
+            .hero-shell {
+                border-radius: 24px;
+            }
+
+            .hero-top,
+            .panel .inner {
+                padding: 20px;
+            }
+
+            .portrait-card {
+                min-height: 380px;
+            }
+
+            .marquee span {
+                font-size: 1.45rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="spotlight"></div>
-    <div class="bg-lines"></div>
-    <div class="bg-mesh"></div>
+    <header>
+        <div class="wrap nav">
+            <a class="brand" href="#home">
+                <div class="brand-mark"></div>
+                <div>
+                    <strong>Javohir</strong>
+                    <span>Portfolio / Personal Brand</span>
+                </div>
+            </a>
 
-    <section class="hero">
-        <p class="university-tag" data-aos="fade-down">TSUE | Raqamli Iqtisodiyot va AT fakulteti | 3-bosqich</p>
-        <h1 data-aos="fade-up">Javohir <br>Javohirov</h1>
-
-        <div class="scholarship-badge" data-aos="zoom-in">
-            <i class="fas fa-volleyball-ball"></i> Republic Athlete & Digital Business Specialist
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#works">Works</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
+    </header>
 
-        <p class="slogan" data-aos="fade-up">
-            "Sog'lom tana va kuchli intellekt — g'alabalar sari raqamli yo'l."
-        </p>
+    <section class="hero" id="home">
+        <div class="wrap hero-shell">
+            <div class="hero-top">
+                <div>
+                    <div class="eyebrow" data-aos="fade-down">Digital designer • athlete • entrepreneur</div>
+                    <h1 class="hero-title" data-aos="fade-up">Product <span class="accent">Designer</span></h1>
+                    <div class="hero-copy" data-aos="fade-up" data-aos-delay="100">
+                        <p>Men sport, biznes va zamonaviy vizual uslubni bir sahifada birlashtirdim. Bu layout siz yuborgan portfolio referensga yaqin, lekin shaxsiy brend uchun yanada toza va premium ko‘rinishda.</p>
+                        <p>Sizning rasmingizni markazdagi portrait blokga qo‘yib, bu sahifani kuchli first impression beradigan portfolio sifatida ishlatish mumkin.</p>
+                    </div>
+                    <div class="hero-actions" data-aos="fade-up" data-aos-delay="160">
+                        <a class="button primary" href="#contact">Get in touch <i class="fa-solid fa-arrow-right"></i></a>
+                        <a class="button secondary" href="#works">View work</a>
+                    </div>
+                </div>
 
-        <div class="stats-bar" data-aos="fade-up">
-            <div class="stat-item"><h3>15+</h3><p>Medallar & Kuboklar</p></div>
-            <div class="stat-item"><h3>10+</h3><p>Respublika turnirlari</p></div>
-            <div class="stat-item"><h3>CarWash</h3><p>Markaz egasi</p></div>
-            <div class="stat-item"><h3>FOOD city</h3><p>Filliallar rahbari</p></div>
+                <div class="hero-aside" data-aos="zoom-in" data-aos-delay="120">
+                    <div class="portrait-card">
+                        <img id="portraitImage" alt="Javohir portret rasmi">
+                        <div class="portrait-label"><i class="fa-solid fa-badge-check"></i> Your photo slot</div>
+                        <button class="portrait-upload" type="button" id="uploadBtn">Upload photo</button>
+                        <input id="photoInput" type="file" accept="image/*" hidden>
+                        <div class="portrait-text">
+                            <h3>Rasm shu joyga qo‘yiladi</h3>
+                            <p>Bu blok aynan sizning suratga moslangan. Agar xohlasangiz, keyingi xabarda rasm faylini yuboring, men uni real photo bilan bog‘lab beraman.</p>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-chip">
+                            <strong>TSUE</strong>
+                            <span>Raqamli iqtisodiyot yo‘nalishi</span>
+                        </div>
+                        <div class="info-chip">
+                            <strong>Sport</strong>
+                            <span>Jamoaviy ruh va intizom</span>
+                        </div>
+                        <div class="info-chip">
+                            <strong>Business</strong>
+                            <span>Amaliy boshqaruv tajribasi</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="marquee" aria-hidden="true">
+                <div class="marquee-track">
+                    <span>Portfolio</span><span>Design</span><span>Branding</span><span>Business</span><span>Sport</span><span>Portfolio</span><span>Design</span><span>Branding</span><span>Business</span><span>Sport</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <div class="container">
-        <div class="section-header" data-aos="fade-right">
-            <h2>Biznes va Sport Faoliyati</h2>
-        </div>
-        <div class="grid-cards">
-            <div class="card" data-aos="fade-up">
-                <i class="fas fa-running" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 20px;"></i>
-                <h3>Professional Voleybol</h3>
-                <p>Respublika miqyosidagi voleybol chempionatlari va universitet jamoasining yetakchi hujumchisi sifatida sportda strategik fikrlash va jamoaviy yetakchilikni rivojlantirib kelmoqdaman.</p>
-            </div>
-            <div class="card" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-terminal" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
-                <h3>Rahbar va boshqaruv</h3>
-                <div class="tag-container" style="margin-bottom: 15px; margin-top: 0;">
-                    <span class="tag">Carwash</span>
-                    <span class="tag">FOOD city</span>
-                    <span class="tag">MCHJ</span>
-                    <span class="tag">Fermer xo'jaligi</span>
-                </div>
-                <p>Bir necha turdagi bizneslar egasiman. Zamonaviy bilimlarim va texnologiyalarga qiziqishim orqali ularni takomillashtiraman.</p>
-            </div>
-        </div>
-
-        <div class="section-header" data-aos="fade-right" style="margin-top: 80px;">
-            <h2>Sport Yutuqlari va Volontyorlik</h2>
-        </div>
-        <div class="split-grid">
-            <div class="card" data-aos="fade-right">
-                <h3><i class="fas fa-medal" style="color: var(--primary);"></i> G'alabalar</h3>
-                <div class="sub-card">
-                    <h5>Respublika Voleybol Kubogi</h5>
-                    <p>Oliy ta'lim muassasalari o'rtasida 1-o'rin</p>
-                </div>
-                <div class="sub-card">
-                    <h5>Universiada O'yinlari</h5>
-                    <p>Viloyat bosqichi mutloq g'olibi</p>
-                </div>
-                <div class="sub-card">
-                    <h5>Yil Sportchisi 2025</h5>
-                    <p>Universitet miqyosidagi maxsus nominatsiya</p>
-                </div>
+    <main class="wrap">
+        <section class="section" id="about">
+            <div class="section-head" data-aos="fade-right">
+                <h2>About</h2>
+                <p>Shaxsiy brend uchun ikkita kuchli qatlam: professional ko‘rinish va hayotiy energiya. Shu sabab dizayn, sport va biznes bir xil ritmda turadi.</p>
             </div>
 
-            <div class="card" data-aos="fade-left">
-                <h3><i class="fas fa-hand-holding-heart" style="color: var(--accent);"></i> Volontyorlik</h3>
-                <div class="sub-card">
-                    <h5>Eco Club</h5>
-                    <p>Universitet Eco club faoli</p>
-                </div>
-                <div class="sub-card">
-                    <h5>Tashkent Marathon</h5>
-                    <p>Sportchilarni yo'naltirish bo'limi koordinatori</p>
-                </div>
-                <div class="sub-card">
-                    <h5>Tadbirkorlar shaharchasi</h5>
-                    <p>Biznes g'oyalar bo'yicha faol</p>
-                </div>
-            </div>
-        </div>
+            <div class="grid">
+                <article class="panel tall work-card" data-aos="fade-up">
+                    <div class="inner">
+                        <div class="kicker">Profile</div>
+                        <div class="big">Clean visual identity with strong editorial feel.</div>
+                    </div>
+                </article>
 
-        <div class="full-width-section" data-aos="fade-up">
-            <div class="section-header"><h2>Til Ko'nikmalari</h2></div>
-            <div class="tag-container">
-                <span class="tag">O'zbek tili</span>
-                <span class="tag">Ingliz tili</span>
-                <span class="tag">Turk tili</span>
-            </div>
-        </div>
+                <article class="panel wide portrait-inline" data-aos="fade-up" data-aos-delay="80">
+                    <div class="inner">
+                        <div>
+                            <div class="kicker">Portrait direction</div>
+                            <h3>Bu joyga sizning real rasmingiz ulanadi</h3>
+                            <p>Men hozir siz yuborgan dizayn ruhida ideal kompozitsiya tayyorladim. Keyingi bosqichda rasm faylini bersangiz, shu blokni aynan surat bilan almashtirib beraman.</p>
+                        </div>
+                        <div class="portrait-shape" aria-hidden="true"></div>
+                    </div>
+                </article>
 
-        <div class="full-width-section" data-aos="fade-up">
-            <div class="section-header"><h2>Qiziqishlar</h2></div>
-            <div class="tag-container">
-                <span class="tag"><i class="fas fa-volleyball-ball"></i> Voleybol</span>
-                <span class="tag"><i class="fas fa-running"></i> Krossfit</span>
-                <span class="tag"><i class="fas fa-language"></i> Til o'rganish</span>
-                <span class="tag"><i class="fas fa-plane"></i> Aktiv Sayohat</span>
+                <article class="panel mid" data-aos="fade-up" data-aos-delay="120">
+                    <div class="inner">
+                        <div class="kicker">Highlights</div>
+                        <div class="metric-list">
+                            <div class="metric"><strong>15+</strong><span>Medal va kuboklar</span></div>
+                            <div class="metric"><strong>10+</strong><span>Respublika turnirlari</span></div>
+                            <div class="metric"><strong>2+ yo‘nalish</strong><span>Sport + biznes</span></div>
+                        </div>
+                    </div>
+                </article>
             </div>
-        </div>
-    </div>
+        </section>
+
+        <section class="section" id="works">
+            <div class="section-head" data-aos="fade-right">
+                <h2>Selected Work</h2>
+                <p>Bu bloklarni portfolio portfelingizdagi real yo‘nalishlar, loyiha va yutuqlar bilan to‘ldirish mumkin.</p>
+            </div>
+
+            <div class="grid">
+                <article class="panel mid" data-aos="fade-up">
+                    <div class="inner">
+                        <div class="kicker">01 / Brand</div>
+                        <h3>Identity system</h3>
+                        <p>Minimal logo, kuchli tipografiya va qora-ivory palitra.</p>
+                    </div>
+                </article>
+
+                <article class="panel mid" data-aos="fade-up" data-aos-delay="80">
+                    <div class="inner">
+                        <div class="kicker">02 / Sport</div>
+                        <h3>Competitive mindset</h3>
+                        <p>Jamoada ishlash, bosim ostida qaror qabul qilish va liderlik.</p>
+                    </div>
+                </article>
+
+                <article class="panel mid" data-aos="fade-up" data-aos-delay="120">
+                    <div class="inner">
+                        <div class="kicker">03 / Business</div>
+                        <h3>Operational growth</h3>
+                        <p>Amaliy boshqaruv va yangi g‘oyalarni tez tatbiq qilish.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="skills">
+            <div class="section-head" data-aos="fade-right">
+                <h2>Skills</h2>
+                <p>Shaxsiy profil uchun kerakli asosiy qobiliyatlar va yo‘nalishlar.</p>
+            </div>
+
+            <div class="stack">
+                <article class="panel" data-aos="fade-up">
+                    <div class="inner">
+                        <div class="chips">
+                            <span class="chip"><i class="fa-solid fa-pen-nib"></i> UI / UX</span>
+                            <span class="chip"><i class="fa-solid fa-table-columns"></i> Visual structure</span>
+                            <span class="chip"><i class="fa-solid fa-shield-heart"></i> Discipline</span>
+                            <span class="chip"><i class="fa-solid fa-chart-line"></i> Business thinking</span>
+                            <span class="chip"><i class="fa-solid fa-volleyball"></i> Team sport</span>
+                            <span class="chip"><i class="fa-solid fa-language"></i> Languages</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <div class="section-head" data-aos="fade-right">
+                <h2>Contact</h2>
+                <p>Agar xohlasangiz, keyingi bosqichda telefon, Telegram va Instagram havolalarini ham dizaynga joylab beraman.</p>
+            </div>
+
+            <div class="contact-grid">
+                <article class="panel contact-card" data-aos="fade-up">
+                    <div>
+                        <div class="kicker">Reach out</div>
+                        <h3>Let’s build the final version.</h3>
+                        <p>Sizning surat, ism-familiya, yo‘nalish va kontaktlaringiz bilan buni to‘liq shaxsiy portfolio ga aylantiraman.</p>
+                    </div>
+                    <a href="mailto:javohir@example.com">javohir@example.com <i class="fa-solid fa-arrow-right"></i></a>
+                </article>
+
+                <article class="panel contact-card" data-aos="fade-up" data-aos-delay="80">
+                    <div>
+                        <div class="kicker">Direct</div>
+                        <h3>Telegram / Instagram</h3>
+                        <p>Bu joyga ijtimoiy tarmoqlaringizni ulash juda oson.</p>
+                    </div>
+                    <a href="#home">@your_username <i class="fa-solid fa-arrow-right"></i></a>
+                </article>
+            </div>
+        </section>
+    </main>
 
     <footer>
-        <p>Email: javohir@example.com | Telegram: @javohir_javohirov</p>
-        <p>&copy; 2026 TSUE 3-bosqich talabasi portfoliosi</p>
+        <div class="wrap">
+            <p>&copy; 2026 Javohir portfolio</p>
+        </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
+        AOS.init({ duration: 850, once: true, offset: 100 });
 
-        document.addEventListener('mousemove', function (e) {
-            document.body.style.setProperty('--x', e.clientX + 'px');
-            document.body.style.setProperty('--y', e.clientY + 'px');
+        const uploadBtn = document.getElementById('uploadBtn');
+        const photoInput = document.getElementById('photoInput');
+        const portraitImage = document.getElementById('portraitImage');
+
+        uploadBtn.addEventListener('click', () => photoInput.click());
+
+        photoInput.addEventListener('change', (event) => {
+            const file = event.target.files && event.target.files[0];
+            if (!file) {
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                portraitImage.src = reader.result;
+                portraitImage.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
         });
     </script>
 </body>
