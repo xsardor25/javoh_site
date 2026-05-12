@@ -305,6 +305,30 @@
             font-size: 0.84rem;
         }
 
+        .style-controls {
+            position: absolute;
+            right: 22px;
+            bottom: 22px;
+            z-index: 2;
+            display: flex;
+            gap: 8px;
+        }
+
+        .style-controls button {
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 0;
+            cursor: pointer;
+            font-weight: 700;
+            background: rgba(255,255,255,0.92);
+            color: #111;
+            font-size: 0.78rem;
+        }
+
+        .portrait-card.filter-bw img { filter: grayscale(1) contrast(1.05); }
+        .portrait-card.filter-warm img { filter: sepia(0.18) saturate(1.06) contrast(1.02) hue-rotate(-6deg); }
+        .portrait-card.filter-boost img { filter: contrast(1.18) saturate(1.12) sepia(0.02); }
+
         .portrait-text {
             position: absolute;
             left: 22px;
@@ -684,18 +708,25 @@
                     <div class="hero-actions" data-aos="fade-up" data-aos-delay="160">
                         <a class="button primary" href="#contact">Get in touch <i class="fa-solid fa-arrow-right"></i></a>
                         <a class="button secondary" href="#works">View work</a>
+                        <a class="button secondary" href="/cv/Javohir_CV.pdf" download id="downloadCv">Download CV</a>
                     </div>
                 </div>
 
                 <div class="hero-aside" data-aos="zoom-in" data-aos-delay="120">
-                    <div class="portrait-card">
+                    <div class="portrait-card" id="portraitCard">
                         <img id="portraitImage" alt="Javohir portret rasmi">
                         <div class="portrait-label"><i class="fa-solid fa-badge-check"></i> Your photo slot</div>
                         <button class="portrait-upload" type="button" id="uploadBtn">Upload photo</button>
                         <input id="photoInput" type="file" accept="image/*" hidden>
+                        <div class="style-controls" aria-hidden="false">
+                            <button type="button" data-style="none">Orig</button>
+                            <button type="button" data-style="bw">B/W</button>
+                            <button type="button" data-style="warm">Warm</button>
+                            <button type="button" data-style="boost">Boost</button>
+                        </div>
                         <div class="portrait-text">
                             <h3>Rasm shu joyga qo‘yiladi</h3>
-                            <p>Bu blok aynan sizning suratga moslangan. Agar xohlasangiz, keyingi xabarda rasm faylini yuboring, men uni real photo bilan bog‘lab beraman.</p>
+                            <p>Bu blok aynan sizning suratga moslangan. Upload tugmasini bosib rasmingizni tanlang yoki fayl nomini menga yuboring, men sahifani to‘liq personalizatsiya qilaman.</p>
                         </div>
                     </div>
                     <div class="info-row">
@@ -835,11 +866,16 @@
 
                 <article class="panel contact-card" data-aos="fade-up" data-aos-delay="80">
                     <div>
-                        <div class="kicker">Direct</div>
-                        <h3>Telegram / Instagram</h3>
-                        <p>Bu joyga ijtimoiy tarmoqlaringizni ulash juda oson.</p>
+                        <div class="kicker">Contact Form</div>
+                        <h3>Yozing — Men javob beraman</h3>
+                        <p>Oddiy xabar yuborish uchun pastdagi formani to‘ldiring; u sizga elektron pochta orqali yuboriladi.</p>
                     </div>
-                    <a href="#home">@your_username <i class="fa-solid fa-arrow-right"></i></a>
+                    <form id="contactForm">
+                        <input type="text" id="cfName" name="name" placeholder="Ismingiz" required style="width:100%;padding:10px;border-radius:10px;margin-bottom:8px;border:1px solid rgba(0,0,0,0.08)">
+                        <input type="email" id="cfEmail" name="email" placeholder="Email" required style="width:100%;padding:10px;border-radius:10px;margin-bottom:8px;border:1px solid rgba(0,0,0,0.08)">
+                        <textarea id="cfMessage" name="message" placeholder="Xabaringiz" rows="3" required style="width:100%;padding:10px;border-radius:10px;margin-bottom:8px;border:1px solid rgba(0,0,0,0.08)"></textarea>
+                        <button type="submit" class="button primary" style="width:100%;">Send message</button>
+                    </form>
                 </article>
             </div>
         </section>
@@ -858,21 +894,54 @@
         const uploadBtn = document.getElementById('uploadBtn');
         const photoInput = document.getElementById('photoInput');
         const portraitImage = document.getElementById('portraitImage');
+        const portraitCard = document.getElementById('portraitCard');
+        const styleButtons = document.querySelectorAll('.style-controls button');
+        const downloadCv = document.getElementById('downloadCv');
 
         uploadBtn.addEventListener('click', () => photoInput.click());
 
         photoInput.addEventListener('change', (event) => {
             const file = event.target.files && event.target.files[0];
-            if (!file) {
-                return;
-            }
-
+            if (!file) return;
             const reader = new FileReader();
             reader.onload = () => {
                 portraitImage.src = reader.result;
                 portraitImage.style.display = 'block';
+                // Remove any filter class when new image loaded
+                portraitCard.classList.remove('filter-bw','filter-warm','filter-boost');
             };
             reader.readAsDataURL(file);
+        });
+
+        styleButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const style = btn.getAttribute('data-style');
+                portraitCard.classList.remove('filter-bw','filter-warm','filter-boost');
+                if (style === 'bw') portraitCard.classList.add('filter-bw');
+                if (style === 'warm') portraitCard.classList.add('filter-warm');
+                if (style === 'boost') portraitCard.classList.add('filter-boost');
+            });
+        });
+
+        // CV link safety: if file not present, keep it but prevent default
+        downloadCv.addEventListener('click', function (e) {
+            // If CV file doesn't exist on server this will 404; we avoid making request here.
+            // Optionally replace href with real file path when available.
+            if (!downloadCv.getAttribute('href') || downloadCv.getAttribute('href').endsWith('/cv/Javohir_CV.pdf')) {
+                // allow default; user can replace file in /cv/
+            }
+        });
+
+        // Simple contact form -> mailto fallback
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (ev) => {
+            ev.preventDefault();
+            const name = document.getElementById('cfName').value.trim();
+            const email = document.getElementById('cfEmail').value.trim();
+            const message = document.getElementById('cfMessage').value.trim();
+            const subject = encodeURIComponent('Portfolio contact from ' + name);
+            const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message);
+            window.location.href = `mailto:javohir@example.com?subject=${subject}&body=${body}`;
         });
     </script>
 </body>
