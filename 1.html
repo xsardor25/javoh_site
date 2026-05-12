@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javohir | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        :root {
+            --bg: #08111f;
+            --surface: rgba(15, 27, 47, 0.72);
+            --surface-strong: rgba(11, 20, 36, 0.88);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #edf4ff;
+            --muted: #9bb0cc;
+            --primary: #6ee7ff;
+            --secondary: #8b5cf6;
+            --accent: #facc15;
+            --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(139, 92, 246, 0.18), transparent 30%),
+                radial-gradient(circle at top right, rgba(110, 231, 255, 0.16), transparent 28%),
+                linear-gradient(180deg, #060b15 0%, var(--bg) 42%, #050912 100%);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.65;
+        }
+
+        .spotlight {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -3;
+            background:
+                radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(110, 231, 255, 0.11) 0, transparent 18%),
+                radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.18), transparent 26%),
+                radial-gradient(circle at 80% 80%, rgba(250, 204, 21, 0.09), transparent 22%);
+            filter: blur(8px);
+        }
+
+        .bg-lines {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.3;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 96px 96px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent 92%);
+        }
+
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.06;
+            background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
+            background-size: 18px 18px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 88px 6% 48px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.25rem, 10vw, 7rem);
+            line-height: 0.95;
+            letter-spacing: -0.06em;
+            margin-bottom: 18px;
+            background: linear-gradient(120deg, #ffffff 0%, var(--primary) 28%, var(--accent) 58%, #ffffff 85%);
+            background-size: 220% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 7s linear infinite;
+        }
+
+        @keyframes textShine {
+            to {
+                background-position: 220% center;
+            }
+        }
+
+        .university-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--muted);
+            border-radius: 999px;
+            backdrop-filter: blur(18px);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            letter-spacing: 0.08em;
+        }
+
+        .scholarship-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 28px 0 8px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            border: 1px solid rgba(110, 231, 255, 0.2);
+            background: linear-gradient(135deg, rgba(110, 231, 255, 0.12), rgba(139, 92, 246, 0.12));
+            color: #dff8ff;
+            backdrop-filter: blur(18px);
+            box-shadow: var(--shadow);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .slogan {
+            max-width: 760px;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            width: 100%;
+            max-width: 860px;
+            margin-top: 42px;
+        }
+
+        .stat-item,
+        .card,
+        .sub-card {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-item {
+            padding: 24px;
+            border-radius: 22px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .stat-item::after,
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: auto -20% -35% auto;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(110, 231, 255, 0.16), transparent 70%);
+            pointer-events: none;
+        }
+
+        .stat-item:hover,
+        .card:hover,
+        .sub-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(110, 231, 255, 0.22);
+        }
+
+        .stat-item h3 {
+            font-size: 2rem;
+            color: #fff;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .stat-item p {
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+        }
+
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 30px 20px 70px;
+        }
+
+        .section-header {
+            margin-bottom: 26px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .section-header::before {
+            content: '';
+            width: 46px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .section-header h2 {
+            font-size: clamp(1.35rem, 2vw, 2rem);
+            letter-spacing: -0.03em;
+        }
+
+        .grid-cards,
+        .split-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 14px;
+        }
+
+        .card p {
+            color: var(--muted);
+        }
+
+        .sub-card {
+            background: var(--surface-strong);
+            padding: 18px 18px 18px 20px;
+            border-radius: 18px;
+            margin-bottom: 14px;
+            border-left: 3px solid rgba(110, 231, 255, 0.7);
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .sub-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .sub-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .sub-card h5 {
+            color: #dff8ff;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .full-width-section {
+            margin-top: 54px;
+            width: 100%;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f3f7ff;
+            padding: 11px 16px;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            transition: 0.25s;
+        }
+
+        .tag:hover {
+            background: rgba(110, 231, 255, 0.12);
+            border-color: rgba(110, 231, 255, 0.28);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 34px 20px 44px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            background: rgba(4, 8, 16, 0.45);
+            backdrop-filter: blur(16px);
+        }
+
+        footer p + p {
+            margin-top: 10px;
+        }
+
+        @media (max-width: 720px) {
+            .hero {
+                padding-top: 72px;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding-inline: 16px;
+            }
+
+            .card,
+            .stat-item {
+                border-radius: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="spotlight"></div>
+    <div class="bg-lines"></div>
+    <div class="bg-mesh"></div>
+
+    <section class="hero">
+        <p class="university-tag" data-aos="fade-down">TSUE | Raqamli Iqtisodiyot va AT fakulteti | 3-bosqich</p>
+        <h1 data-aos="fade-up">Javohir <br>Javohirov</h1>
+
+        <div class="scholarship-badge" data-aos="zoom-in">
+            <i class="fas fa-volleyball-ball"></i> Republic Athlete & Digital Business Specialist
+        </div>
+
+        <p class="slogan" data-aos="fade-up">
+            "Sog'lom tana va kuchli intellekt — g'alabalar sari raqamli yo'l."
+        </p>
+
+        <div class="stats-bar" data-aos="fade-up">
+            <div class="stat-item"><h3>15+</h3><p>Medallar & Kuboklar</p></div>
+            <div class="stat-item"><h3>10+</h3><p>Respublika turnirlari</p></div>
+            <div class="stat-item"><h3>CarWash</h3><p>Markaz egasi</p></div>
+            <div class="stat-item"><h3>FOOD city</h3><p>Filliallar rahbari</p></div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="section-header" data-aos="fade-right">
+            <h2>Biznes va Sport Faoliyati</h2>
+        </div>
+        <div class="grid-cards">
+            <div class="card" data-aos="fade-up">
+                <i class="fas fa-running" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 20px;"></i>
+                <h3>Professional Voleybol</h3>
+                <p>Respublika miqyosidagi voleybol chempionatlari va universitet jamoasining yetakchi hujumchisi sifatida sportda strategik fikrlash va jamoaviy yetakchilikni rivojlantirib kelmoqdaman.</p>
+            </div>
+            <div class="card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-terminal" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                <h3>Rahbar va boshqaruv</h3>
+                <div class="tag-container" style="margin-bottom: 15px; margin-top: 0;">
+                    <span class="tag">Carwash</span>
+                    <span class="tag">FOOD city</span>
+                    <span class="tag">MCHJ</span>
+                    <span class="tag">Fermer xo'jaligi</span>
+                </div>
+                <p>Bir necha turdagi bizneslar egasiman. Zamonaviy bilimlarim va texnologiyalarga qiziqishim orqali ularni takomillashtiraman.</p>
+            </div>
+        </div>
+
+        <div class="section-header" data-aos="fade-right" style="margin-top: 80px;">
+            <h2>Sport Yutuqlari va Volontyorlik</h2>
+        </div>
+        <div class="split-grid">
+            <div class="card" data-aos="fade-right">
+                <h3><i class="fas fa-medal" style="color: var(--primary);"></i> G'alabalar</h3>
+                <div class="sub-card">
+                    <h5>Respublika Voleybol Kubogi</h5>
+                    <p>Oliy ta'lim muassasalari o'rtasida 1-o'rin</p>
+                </div>
+                <div class="sub-card">
+                    <h5>Universiada O'yinlari</h5>
+                    <p>Viloyat bosqichi mutloq g'olibi</p>
+                </div>
+                <div class="sub-card">
+                    <h5>Yil Sportchisi 2025</h5>
+                    <p>Universitet miqyosidagi maxsus nominatsiya</p>
+                </div>
+            </div>
+
+            <div class="card" data-aos="fade-left">
+                <h3><i class="fas fa-hand-holding-heart" style="color: var(--accent);"></i> Volontyorlik</h3>
+                <div class="sub-card">
+                    <h5>Eco Club</h5>
+                    <p>Universitet Eco club faoli</p>
+                </div>
+                <div class="sub-card">
+                    <h5>Tashkent Marathon</h5>
+                    <p>Sportchilarni yo'naltirish bo'limi koordinatori</p>
+                </div>
+                <div class="sub-card">
+                    <h5>Tadbirkorlar shaharchasi</h5>
+                    <p>Biznes g'oyalar bo'yicha faol</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="full-width-section" data-aos="fade-up">
+            <div class="section-header"><h2>Til Ko'nikmalari</h2></div>
+            <div class="tag-container">
+                <span class="tag">O'zbek tili</span>
+                <span class="tag">Ingliz tili</span>
+                <span class="tag">Turk tili</span>
+            </div>
+        </div>
+
+        <div class="full-width-section" data-aos="fade-up">
+            <div class="section-header"><h2>Qiziqishlar</h2></div>
+            <div class="tag-container">
+                <span class="tag"><i class="fas fa-volleyball-ball"></i> Voleybol</span>
+                <span class="tag"><i class="fas fa-running"></i> Krossfit</span>
+                <span class="tag"><i class="fas fa-language"></i> Til o'rganish</span>
+                <span class="tag"><i class="fas fa-plane"></i> Aktiv Sayohat</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Email: javohir@example.com | Telegram: @javohir_javohirov</p>
+        <p>&copy; 2026 TSUE 3-bosqich talabasi portfoliosi</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        document.addEventListener('mousemove', function (e) {
+            document.body.style.setProperty('--x', e.clientX + 'px');
+            document.body.style.setProperty('--y', e.clientY + 'px');
+        });
+    </script>
+</body>
+</html>
